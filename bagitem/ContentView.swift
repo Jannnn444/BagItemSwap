@@ -90,6 +90,8 @@ struct ContentView: View {
             myBag.removeAll { $0.name == items[index].name }
         }
     }
+    
+ 
 }
 
 #Preview {
