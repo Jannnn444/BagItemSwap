@@ -18,83 +18,99 @@ struct ContentView: View {
     @State var items: [Item] = [
         Item(name: "apple", isChosed: false),
         Item(name: "banana", isChosed: false),
-        Item(name: "grape", isChosed: false)
+        Item(name: "grape", isChosed: false),
+        Item(name: "cake", isChosed: false),
     ]
     
     @State var myBag: [Item] = []
     
     var body: some View {
-        VStack {
-            // Items container
-            ZStack {
-                Rectangle()
-                    .frame(width: 300, height: 300)
-                    .foregroundColor(.blue.opacity(0.5))
-                    .cornerRadius(20)
-                
-                VStack {
-                    Text("Available Items")
-                        .font(.title2)
-                        .padding()
+        HStack {
+            VStack {
+                // Items container
+                ZStack {
+                    Rectangle()
+                        .frame(width: 180, height: 300)
+                        .foregroundColor(.blue.opacity(0.5))
+                        .cornerRadius(20)
                     
-                    ForEach(items.indices, id: \.self) { index in
-                        HStack {
-                            Button(action: {
-                                toggleItem(at: index)
-                            }) {
-                                Text(items[index].name)
-                                    .font(.title)
-                                    .foregroundStyle(.black)
-                                    .bold()
-//                                Text(items[index].isChosed ? "Remove" : "Add")
+                    VStack {
+                        ForEach(items.indices, id: \.self) { index in
+                            HStack {
+                                Button(action: {
+                                    toggleItem(at: index)
+                                }) {
+                                    Text(items[index].name)
+                                        .font(.title)
+                                        .foregroundStyle(.black)
+                                        .bold()
+                               //   Text(items[index].isChosed ? "Remove" : "Add")
+                                }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+                    }
+                }
+                
+                // Bag container
+                ZStack {
+                    Rectangle()
+                        .frame(width: 180, height: 300)
+                        .foregroundColor(.yellow.opacity(0.5))
+                        .cornerRadius(20)
+                    
+                    VStack {
+                        Text("My Bag")
+                            .font(.headline)
+                            .padding()
+                        
+                        ForEach(myBag, id: \.name) { item in
+                            Text(item.name)
+                                .padding(.horizontal)
+                        }
+                        
+                        if myBag.isEmpty {
+                            Text("Bag is empty")
+                                .foregroundColor(.gray)
+                                .italic()
+                        }
                     }
                 }
             }
-            
-            // Bag container
-            ZStack {
-                Rectangle()
-                    .frame(width: 300, height: 300)
-                    .foregroundColor(.yellow.opacity(0.5))
-                    .cornerRadius(20)
+           
+            VStack {
+                ZStack {
+                    Rectangle()
+                        .frame(width: 180, height: 300)
+                        .foregroundColor(.yellow.opacity(0.5))
+                        .cornerRadius(20)
+                }
                 
-                VStack {
-                    Text("My Bag")
-                        .font(.headline)
-                        .padding()
-                    
-                    ForEach(myBag, id: \.name) { item in
-                        Text(item.name)
-                            .padding(.horizontal)
-                    }
-                    
-                    if myBag.isEmpty {
-                        Text("Bag is empty")
-                            .foregroundColor(.gray)
-                            .italic()
-                    }
+                ZStack {
+                    Rectangle()
+                        .frame(width: 180, height: 300)
+                        .foregroundColor(.yellow.opacity(0.5))
+                        .cornerRadius(20)
                 }
             }
         }
-        .padding()
     }
     
     func toggleItem(at index: Int) {
         items[index].isChosed.toggle()
-        
-        if items[index].isChosed {
-            // Add to bag
-            myBag.append(items[index])
-        } else {
-            // Remove from bag
+        if myBag.count < 3 {
+            if items[index].isChosed {
+                // Add to bag
+                myBag.append(items[index])
+            } else {
+                // Remove from bag
+                myBag.removeAll { $0.name == items[index].name }
+            }
+        } else if myBag.count >= 3 {
+            // above
             myBag.removeAll { $0.name == items[index].name }
         }
     }
-    
- 
 }
 
 #Preview {
