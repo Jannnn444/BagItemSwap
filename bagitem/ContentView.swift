@@ -34,17 +34,20 @@ struct ContentView: View {
                 
                 VStack {
                     Text("Available Items")
-                        .font(.headline)
+                        .font(.title2)
                         .padding()
                     
                     ForEach(items.indices, id: \.self) { index in
                         HStack {
-                            Text(items[index].name)
-                            Spacer()
-                            Button(items[index].isChosed ? "Remove" : "Add") {
+                            Button(action: {
                                 toggleItem(at: index)
+                            }) {
+                                Text(items[index].name)
+                                    .font(.title)
+                                    .foregroundStyle(.black)
+                                    .bold()
+//                                Text(items[index].isChosed ? "Remove" : "Add")
                             }
-                            .foregroundColor(items[index].isChosed ? .red : .green)
                         }
                         .padding(.horizontal)
                     }
