@@ -157,7 +157,8 @@ struct ContentView: View {
             
         }
     }
-    
+    // this for add in temp ag
+    // send out confirm data at button go 
     func toggleItem(at index: Int, itemsList: inout [Item], destinationBag: inout [Item]) {
         itemsList[index].isChosed.toggle()
         if destinationBag.count < 3 {
