@@ -74,6 +74,11 @@ struct ContentView: View {
                                 .foregroundColor(.gray)
                                 .italic()
                         }
+                        if myBag.count >= 3 {
+                            Text("Bag is full")
+                                .foregroundStyle(.gray)
+                                .italic()
+                        }
                     }
                 }
             }
