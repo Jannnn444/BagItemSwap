@@ -47,7 +47,7 @@ struct ContentView: View {
                         ForEach(leftsideItems.indices, id: \.self) { index in
                             HStack {
                                 Button(action: {
-                                    toggleItem(at: index, myItems: leftsideItems)
+                                    toggleItem(at: index, itemsList: &leftsideItems, destinationBag: &myLeftsideBag)
                                 }) {
                                     Text(leftsideItems[index].name)
                                         .font(.title)
@@ -103,7 +103,7 @@ struct ContentView: View {
                         ForEach(rightsideItems.indices, id: \.self) { index in
                             HStack {
                                 Button(action: {
-                                  toggleItem(at: index, myItems: rightsideItems)
+                                    toggleItem(at: index, itemsList: &rightsideItems, destinationBag: &myRightSideBag)
                                 }) {
                                     Text(rightsideItems[index].name)
                                         .font(.title)
@@ -147,16 +147,16 @@ struct ContentView: View {
         }
     }
     
-    func toggleItem(at index: Int, myItems: inout [Item]) {
-        myItems[index].isChosed.toggle()
-        if myItems.count < 3 {
-            if myItems[index].isChosed {
-                myLeftsideBag.append(leftsideItems[index])
+    func toggleItem(at index: Int, itemsList: inout [Item], destinationBag: inout [Item]) {
+        itemsList[index].isChosed.toggle()
+        if destinationBag.count < 3 {
+            if itemsList[index].isChosed {
+                destinationBag.append(itemsList[index])
             } else {
-                myLeftsideBag.removeAll { $0.name == leftsideItems[index].name }
+                destinationBag.removeAll { $0.name == itemsList[index].name }
             }
-        } else if myLeftsideBag.count >= 3 {
-            myLeftsideBag.removeAll { $0.name == leftsideItems[index].name }
+        } else if destinationBag.count >= 3 {
+           destinationBag.removeAll { $0.name == itemsList[index].name }
         }
     }
 }
