@@ -39,7 +39,7 @@ struct ContentView: View {
                 // Items container
                 ZStack {
                     Rectangle()
-                        .frame(width: 180, height: 300)
+                        .frame(width: 180, height: 180)
                         .foregroundColor(.blue.opacity(0.5))
                         .cornerRadius(20)
                     
@@ -49,10 +49,15 @@ struct ContentView: View {
                                 Button(action: {
                                     toggleItem(at: index, itemsList: &leftsideItems, destinationBag: &myLeftsideBag)
                                 }) {
-                                    Text(leftsideItems[index].name)
-                                        .font(.title)
-                                        .foregroundStyle(.black)
-                                        .bold()
+                                    Image("\(leftsideItems[index].name)")
+                                        .resizable()
+                                        .frame(width: 50, height: 50)
+                                    
+//                                    Text(leftsideItems[index].name)
+//                                        .font(.title)
+//                                        .foregroundStyle(.black)
+//                                        .bold()
+                         
                          //   Text(items[index].isChosed ? "Remove" : "Add")
                                 }
                             }
@@ -64,7 +69,7 @@ struct ContentView: View {
                 // Bag container
                 ZStack {
                     Rectangle()
-                        .frame(width: 180, height: 300)
+                        .frame(width: 180, height: 180)
                         .foregroundColor(.yellow.opacity(0.5))
                         .cornerRadius(20)
                     
@@ -95,7 +100,7 @@ struct ContentView: View {
             VStack {
                 ZStack {
                     Rectangle()
-                        .frame(width: 180, height: 300)
+                        .frame(width: 180, height: 180)
                         .foregroundColor(.blue.opacity(0.5))
                         .cornerRadius(20)
                     
@@ -105,10 +110,14 @@ struct ContentView: View {
                                 Button(action: {
                                     toggleItem(at: index, itemsList: &rightsideItems, destinationBag: &myRightSideBag)
                                 }) {
-                                    Text(rightsideItems[index].name)
-                                        .font(.title)
-                                        .foregroundStyle(.black)
-                                        .bold()
+                                    Image("\(rightsideItems[index].name)")
+                                        .resizable()
+                                        .frame(width: 50, height: 50)
+                                    
+//                                    Text(rightsideItems[index].name)
+//                                        .font(.title)
+//                                        .foregroundStyle(.black)
+//                                        .bold()
                                 }
                             }.padding(.horizontal)
                         }
@@ -117,7 +126,7 @@ struct ContentView: View {
                 
                 ZStack {
                     Rectangle()
-                        .frame(width: 180, height: 300)
+                        .frame(width: 180, height: 180)
                         .foregroundColor(.yellow.opacity(0.5))
                         .cornerRadius(20)
                     VStack {
