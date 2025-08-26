@@ -15,17 +15,26 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var items: [Item] = [
+    @State var leftsideItems: [Item] = [
         Item(name: "apple", isChosed: false),
         Item(name: "banana", isChosed: false),
         Item(name: "grape", isChosed: false),
         Item(name: "cake", isChosed: false),
     ]
+    @State var rightsideItems: [Item] = [
+        Item(name: "cookie", isChosed: false),
+        Item(name: "strawberry", isChosed: false),
+        Item(name: "berry", isChosed: false),
+        Item(name: "watermelon", isChosed: false)
+    ]
     
-    @State var myBag: [Item] = []
+    @State var myLeftsideBag: [Item] = []
+    @State var myRightSideBag: [Item] = []
     
     var body: some View {
         HStack {
+            
+          // MARK: Left side bag
             VStack {
                 // Items container
                 ZStack {
@@ -35,16 +44,16 @@ struct ContentView: View {
                         .cornerRadius(20)
                     
                     VStack {
-                        ForEach(items.indices, id: \.self) { index in
+                        ForEach(leftsideItems.indices, id: \.self) { index in
                             HStack {
                                 Button(action: {
-                                    toggleItem(at: index)
+                                    toggleItem(at: index, myItems: leftsideItems)
                                 }) {
-                                    Text(items[index].name)
+                                    Text(leftsideItems[index].name)
                                         .font(.title)
                                         .foregroundStyle(.black)
                                         .bold()
-                               //   Text(items[index].isChosed ? "Remove" : "Add")
+                         //   Text(items[index].isChosed ? "Remove" : "Add")
                                 }
                             }
                             .padding(.horizontal)
@@ -60,21 +69,20 @@ struct ContentView: View {
                         .cornerRadius(20)
                     
                     VStack {
-                        Text("My Bag")
+                        Text("Container Bag")
                             .font(.headline)
                             .padding()
                         
-                        ForEach(myBag, id: \.name) { item in
+                        ForEach(myLeftsideBag, id: \.name) { item in
                             Text(item.name)
                                 .padding(.horizontal)
                         }
                         
-                        if myBag.isEmpty {
+                        if myLeftsideBag.isEmpty {
                             Text("Bag is empty")
                                 .foregroundColor(.gray)
                                 .italic()
-                        }
-                        if myBag.count >= 3 {
+                        } else if myLeftsideBag.count >= 3 {
                             Text("Bag is full")
                                 .foregroundStyle(.gray)
                                 .italic()
@@ -83,12 +91,28 @@ struct ContentView: View {
                 }
             }
            
+           // MARK: Right side bag
             VStack {
                 ZStack {
                     Rectangle()
                         .frame(width: 180, height: 300)
-                        .foregroundColor(.yellow.opacity(0.5))
+                        .foregroundColor(.blue.opacity(0.5))
                         .cornerRadius(20)
+                    
+                    VStack {
+                        ForEach(rightsideItems.indices, id: \.self) { index in
+                            HStack {
+                                Button(action: {
+                                  toggleItem(at: index, myItems: rightsideItems)
+                                }) {
+                                    Text(rightsideItems[index].name)
+                                        .font(.title)
+                                        .foregroundStyle(.black)
+                                        .bold()
+                                }
+                            }.padding(.horizontal)
+                        }
+                    }
                 }
                 
                 ZStack {
@@ -96,24 +120,43 @@ struct ContentView: View {
                         .frame(width: 180, height: 300)
                         .foregroundColor(.yellow.opacity(0.5))
                         .cornerRadius(20)
+                    VStack {
+                        Text("Container Bag")
+                            .font(.headline)
+                            .padding()
+                        
+                        ForEach(myRightSideBag, id: \.name) { item in
+                            Text(item.name)
+                                .padding(.horizontal)
+                        }
+                        
+                        if myRightSideBag.isEmpty {
+                            Text("Bag is empty")
+                                .foregroundStyle(.gray)
+                                .italic()
+                        } else if myRightSideBag.count >= 3 {
+                            Text("Bag is full")
+                                .foregroundStyle(.gray)
+                                .italic()
+                        }
+                        
+                    }
                 }
+
             }
         }
     }
     
-    func toggleItem(at index: Int) {
-        items[index].isChosed.toggle()
-        if myBag.count < 3 {
-            if items[index].isChosed {
-                // Add to bag
-                myBag.append(items[index])
+    func toggleItem(at index: Int, myItems: inout [Item]) {
+        myItems[index].isChosed.toggle()
+        if myItems.count < 3 {
+            if myItems[index].isChosed {
+                myLeftsideBag.append(leftsideItems[index])
             } else {
-                // Remove from bag
-                myBag.removeAll { $0.name == items[index].name }
+                myLeftsideBag.removeAll { $0.name == leftsideItems[index].name }
             }
-        } else if myBag.count >= 3 {
-            // above
-            myBag.removeAll { $0.name == items[index].name }
+        } else if myLeftsideBag.count >= 3 {
+            myLeftsideBag.removeAll { $0.name == leftsideItems[index].name }
         }
     }
 }
