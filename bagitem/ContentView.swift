@@ -50,16 +50,9 @@ struct ContentView: View {
                                 Button(action: {
                                     toggleItem(at: index, itemsList: &leftsideItems, destinationBag: &myLeftsideBag)
                                 }) {
-                                    
                                     Image("\(leftsideItems[index].name)")
                                         .resizable()
                                         .frame(width: 30, height: 30)
-                                    
-                                    //                                    Text(leftsideItems[index].name)
-                                    //                                        .font(.title)
-                                    //                                        .foregroundStyle(.black)
-                                    //                                        .bold()
-                                    
                                     //   Text(items[index].isChosed ? "Remove" : "Add")
                                 }
                             }
@@ -73,7 +66,7 @@ struct ContentView: View {
                 ZStack {
                     Rectangle()
                         .frame(width: 180, height: 180)
-                        .foregroundColor(.yellow.opacity(0.5))
+                        .foregroundColor(.yellow.opacity(0.3))
                         .cornerRadius(20)
                     
                     VStack {
@@ -81,12 +74,12 @@ struct ContentView: View {
                             .font(.headline)
                             .padding()
                         
-                        ForEach(myLeftsideBag, id: \.name) { item in
-//                            Text(item.name)
-//                                .padding(.horizontal)
-                            Image("\(item.name)")
-                                .resizable()
-                                .frame(width: 30, height: 30)
+                        HStack {
+                            ForEach(myLeftsideBag, id: \.name) { item in
+                                Image("\(item.name)")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                            }
                         }
                         
                         if myLeftsideBag.isEmpty {
@@ -100,7 +93,7 @@ struct ContentView: View {
                         }
                     }
                 }
-            }
+            }.padding(.trailing) //right side trailing
            
            // MARK: Right side bag
             VStack {
@@ -121,11 +114,6 @@ struct ContentView: View {
                                         Image("\(rightsideItems[index].name)")
                                             .resizable()
                                             .frame(width: 30, height: 30)
-                                        
-                                        //      Text(rightsideItems[index].name)
-                                        //        .font(.title)
-                                        //        .foregroundStyle(.black)
-                                        //        .bold()
                                     }
                                 }
                             }
@@ -137,19 +125,19 @@ struct ContentView: View {
                 ZStack {
                     Rectangle()
                         .frame(width: 180, height: 180)
-                        .foregroundColor(.yellow.opacity(0.5))
+                        .foregroundColor(.yellow.opacity(0.3))
                         .cornerRadius(20)
                     VStack {
                         Text("Container Bag")
                             .font(.headline)
                             .padding()
                         
-                        ForEach(myRightSideBag, id: \.name) { item in
-//                            Text(item.name)
-//                                .padding(.horizontal)
-                            Image("\(item.name)")
-                                .resizable()
-                                .frame(width: 30, height: 30)
+                        HStack {
+                            ForEach(myRightSideBag, id: \.name) { item in
+                                Image("\(item.name)")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                            }
                         }
                         
                         if myRightSideBag.isEmpty {
@@ -166,6 +154,7 @@ struct ContentView: View {
                 }
 
             }
+            
         }
     }
     
